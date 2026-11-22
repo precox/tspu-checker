@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tspu-checker"
+version = "0.1.0a1"
+description = "Compare VPN connectivity observations and diagnose path failures"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.scripts]
+tspu-checker = "tspu_checker.__main__:main"
+
+[project.urls]
+Repository = "https://github.com/precox/tspu-checker"
+
+[tool.setuptools.packages.find]
+include = ["tspu_checker", "tspu_checker.*"]

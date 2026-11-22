@@ -8,11 +8,41 @@
 
 ## Быстрый старт
 
-Синтетический пример с двумя отказами в одной сети и успешными контрольными пробами:
+Запустите синтетический пример из клона репозитория:
 
 ```sh
+git clone https://github.com/precox/tspu-checker.git
+cd tspu-checker
 python3 -m tspu_checker report --as-of 2030-01-01T10:02:00Z examples/observations.jsonl
 ```
+
+Фрагмент ожидаемого вывода:
+
+```json
+[
+  {
+    "result": "client_path_issue_suspected",
+    "attribution": "unestablished",
+    "working_client_networks": ["mobile-isp"],
+    "client_networks_with_failures": ["wifi-isp"]
+  }
+]
+```
+
+В этом примере VPN работает из мобильной сети. В Wi-Fi отказы повторяются при успешных контрольных проверках, поэтому отчёт выделяет клиентский путь из этой сети. Причина сбоя остаётся неустановленной.
+
+## Установка команды
+
+С установленным [pipx](https://pipx.pypa.io/latest/how-to/install-pipx.html) можно поставить CLI прямо из GitHub:
+
+```sh
+pipx install 'git+https://github.com/precox/tspu-checker.git'
+tspu-checker --help
+```
+
+После установки вместо `python3 -m tspu_checker` в примерах можно использовать `tspu-checker`.
+
+## Реальные замеры
 
 Для реальных замеров используйте один `--run` и `--target` для инцидента. Для каждой новой попытки задайте новый `--attempt`. Фазы одной попытки должны иметь одну и ту же точку наблюдения, сеть и идентификатор. Одинаковую конфигурацию туннеля обозначайте одной меткой `--profile`.
 
