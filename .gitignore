@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env*
+*.db
+*.key
+*.pem
+*.p12
+*.pcap*
+*.zip
+private/
+captures/
+runs/
