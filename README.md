@@ -76,6 +76,21 @@ journalctl -u my-hysteria-check.service -u my-http3-check.service -o json --sinc
 
 Адаптер сверяет метаданные локального журнала и сообщает о выбранных службах без результатов. Запуск Hysteria2- и HTTP/3-проб остаётся задачей вашей установки. [Формат импорта](docs/methodology.md#адаптер-hysteria2)
 
+## Разбор инцидента
+
+Команда `incident` строит хронологию из клиентских и серверных проверок, окон UDP и выбранных событий журналов. В синтетическом примере с 10:01 до 10:06 UTC зафиксирован нулевой входящий UDP с исправным сбором. С 10:06 до 10:07 запись отсутствует. После возобновления трафика журнал показывает закрытие сессии и новое подключение.
+
+```sh
+python3 -m tspu_checker incident examples/incident/observations.jsonl \
+  --run example-incident --target vpn-edge --local-vantage entry \
+  --start 2030-01-01T10:00:00Z --end 2030-01-01T10:09:00Z \
+  --journal examples/incident/server-journal.jsonl \
+  --resource-unit example-resources.service --gateway-unit example-gateway.service \
+  --hysteria-log examples/incident/hysteria2.log --hysteria-version 2.14.0
+```
+
+[Как собрать входные данные и читать хронологию](docs/methodology.md#хронология-инцидента).
+
 ## Методика и примеры
 
 - [Порядок проверки, формат JSONL и интерпретация](docs/methodology.md).

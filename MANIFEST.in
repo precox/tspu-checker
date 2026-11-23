@@ -1,1 +1,2 @@
 include examples/observations.jsonl
+recursive-include examples/incident *.jsonl *.log
